@@ -90,21 +90,25 @@
     }
 </script>
 
-<audio id="audio" autoplay="autopaly" loop="loop" src="http://www.hunlipic.com/e/mp3/gbqq.mp3">
+<audio id="audio" autoplay="autopaly" loop="loop" src="./gbqq.mp3">
 </audio>
 <script>
     $(function () {
-        //--创建页面监听，等待微信端页面加载完毕 触发音频播放
-        document.addEventListener('DOMContentLoaded', function () {
-            function audioAutoPlay() {
-                var audio = document.getElementById('audio');
-                audio.play();
-                document.addEventListener("WeixinJSBridgeReady", function () {
+        if(/Android|webOS|iPhone|BlackBerry/i.test(navigator.userAgent)) {
+            //--创建页面监听，等待微信端页面加载完毕 触发音频播放
+            document.addEventListener('DOMContentLoaded', function () {
+                function audioAutoPlay() {
+                    var audio = document.getElementById('audio');
                     audio.play();
-                }, false);
-            }
-            audioAutoPlay();
-        });
+                    document.addEventListener("WeixinJSBridgeReady", function () {
+                        audio.play();
+                    }, false);
+                }
+                audioAutoPlay();
+            });
+        } else {
+            $("#audio").attr("src","http://www.hunlipic.com/e/mp3/gbqq.mp3");
+        }
     })
 
 
